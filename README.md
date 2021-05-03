@@ -12,12 +12,17 @@ To host the Spring Boot application we will use AWS Elastic Beanstalk, and AWS R
 
 ## Prerequisities
 
-- Git installed on your machine
-- Java installed and set up on your machine
-- PostgreSQL installed on your machine (or using Docker)
-- AWS Account created using the [AWS Educate link](https://aws.amazon.com/education/awseducate/students/) (this will give you a $40 credit)
+- Git installed
+- Java installed and set up
+- PostgreSQL installed
+- AWS Educate Account ([See how to get one here](docs/AWS_EDUCATE.md))
 
 ## How to set up the project locally
 
 - Pull the project locally (e.g., using SSH with `git pull git@github.com:Duchynko/cloud-workshop.git`)
 - Replace the `username`, `password` and `url` fields in the `src/resources/application.properties` and supplement your own database credentials
+
+## References
+
+- [Introduction to AWS Elastic Beanstalk](https://www.youtube.com/watch?v=uiM1xzOX8Qg)
+- [Deploying a Spring Boot Application on AWS Using AWS Elastic Beanstalk](https://aws.amazon.com/blogs/devops/deploying-a-spring-boot-application-on-aws-using-aws-elastic-beanstalk/)
