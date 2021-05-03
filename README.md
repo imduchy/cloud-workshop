@@ -10,7 +10,7 @@ To host the Spring Boot application we will use AWS Elastic Beanstalk, and AWS R
 
 ![architecture diagram](https://github.com/Duchynko/cloud-workshop/blob/main/docs/architecture.png?raw=true "Architecture diagram")
 
-## Prerequisities
+## Prerequisites
 
 - Git installed
 - Java installed and set up
