@@ -24,6 +24,10 @@ To host the Spring Boot application we will use AWS Elastic Beanstalk, and AWS R
 3. Make sure your database is up and running
 4. Start the application
 
+## How to deploy application to AWS Elastic Beanstalk
+
+- [Deployment steps](docs/DEPLOY_ELASTIC_BEANSTALK.md)
+
 ## Useful links
 
 - [Introduction to AWS Elastic Beanstalk](https://www.youtube.com/watch?v=uiM1xzOX8Qg)
