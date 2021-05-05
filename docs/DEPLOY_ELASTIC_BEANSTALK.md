@@ -23,7 +23,9 @@ Click on **Create application** and wait until the application is created. This 
 
 When the application is ready click on **Configuration**, and **Edit** in the Database row. Here you can configure a managed RDS Database for your application.
 Choose one of the engines (for the workshop we will use **postgres**), fill in the **Username** and **Password** fields and leave all other fields with their
-default values. Just make sure that the **Instance class** is set to **db.t2.micro**. When everything is configured click on **Apply**. Database creation will
+default values. Do not set your Username to _admin_ as it is a reserved user and database creation would fail.
+
+Make sure that the **Instance class** is set to **db.t2.micro**. When everything is configured click on **Apply**. Database creation will
 take a couple of minutes again.
 
 ### Step 6
