@@ -1,9 +1,6 @@
 package com.jakubduchon.webapidemo.employee;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.jakubduchon.webapidemo.projects.Project;
 import org.hibernate.annotations.GenericGenerator;
 
