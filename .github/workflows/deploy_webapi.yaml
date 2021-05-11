@@ -71,7 +71,7 @@ jobs:
         working-directory: ${{ steps.download.outputs.download-path }}
 
       - name: DEBUG - Display structure of the zip file
-        run: mkdir zip && unzip deploy.zip && ls -al zip
+        run: mkdir zip && unzip deploy.zip -d zip && ls -al zip
         working-directory: ${{ steps.download.outputs.download-path }}
 
       - name: Deploy to Elastic Beanstalk
