@@ -42,7 +42,7 @@ jobs:
       - name: Upload the build artifact
         uses: actions/upload-artifact@v2
         with:
-          name: deploy.zip
+          name: build-artifact.jar
           path: target/*.jar
           # We can remove the build artifact from GitHub after one day. There is a
           # 1GB storage limit for artifacts, and we don't really need them after
@@ -59,9 +59,16 @@ jobs:
 
       - name: Download the build artifact
         uses: actions/download-artifact@v2
+        id: download
         with:
-          name: deploy.zip
-          path: ~/artifact/
+          name: build-artifact.jar
+
+      - name: Generate deployment package
+        run: zip -r deploy.zip ${{ steps.download.outputs.download-path }}
+
+      - name: DEBUG - Display structure of downloaded files
+        run: ls
+        working-directory: ${{ steps.download.outputs.download-path }}
 
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v16
@@ -76,4 +83,4 @@ jobs:
           environment_name: ${{ env.ENVIRONMENT_NAME }}
           version_label: v1
           region: ${{ env.AWS_REGION }}
-          deployment_package: ~/artifact/deploy.zip
+          deployment_package: deploy.zip
