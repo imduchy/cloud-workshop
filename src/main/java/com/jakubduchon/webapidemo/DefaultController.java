@@ -8,6 +8,6 @@ public class DefaultController {
 
     @GetMapping("/")
     String health() {
-        return "The application is up and running.";
+        return "The application was deployed by GitHub Actions! <3";
     }
 }

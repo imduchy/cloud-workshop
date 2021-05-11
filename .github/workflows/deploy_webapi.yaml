@@ -1,0 +1,77 @@
+# Name of the workflow (action) which will be displaye on GitHub
+name: Deploy webapi to EB
+
+# Specifies when should the workflow run. Currently it's set-up to every push
+# to the branch called 'main'.
+on:
+  push:
+    branches:
+      # If you use 'master' branch instead, don't forget to change this to 'master'
+      - main
+
+# Global environment variables
+env:
+  APPLICATION_NAME: workshop-demo
+  ENVIRONMENT_NAME: Workshopdemo-env
+  AWS_REGION: us-east-1
+
+# Each workflow consists of one or many jobs
+jobs:
+  # A build job (this can be named called whatever you like)
+  build:
+    runs-on: ubuntu-latest
+
+    # Each job consists of one or many steps
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      # Documentation for this action - https://github.com/actions/setup-java
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: "11"
+          distribution: "adopt" # one of the supported Java distributions
+
+      - name: Build and package
+        # The following command will execute mvn (Maven) validate, compile, test,
+        # package and verify commands. A good explaination of the Maven's project
+        # lifecycle from StackOverflow - https://stackoverflow.com/a/55645546/8475178
+        run: mvn --batch-mode --update-snapshots verify
+
+      - name: Upload the build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Package
+          path: target/*.jar
+          # We can remove the build artifact from GitHub after one day. There is a
+          # 1GB storage limit for artifacts, and we don't really need them after
+          # the deployment.
+          retention-days: 1
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - name: Download the build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: deploy.zip
+
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v16
+        with:
+          # Create an IAM User with least privilege access and store the generated
+          # Access key ID and Secret access key to your GitHub repository Secrets
+          # DO NOT HARDCODE THE VALUES DIRECTLY INTO THE CODE!
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          # Make sure to set these variables based on your application/region
+          application_name: ${APPLICATION_NAME}
+          environment_name: ${ENVIRONMENT_NAME}
+          version_label: v1
+          aws-region: ${AWS_REGION}
+          deployment_package: deploy.zip
