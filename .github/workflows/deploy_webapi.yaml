@@ -71,8 +71,8 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           # Make sure to set these variables based on your application/region
-          application_name: ${APPLICATION_NAME}
-          environment_name: ${ENVIRONMENT_NAME}
+          application_name: ${{ env.APPLICATION_NAME }}
+          environment_name: ${{ env.ENVIRONMENT_NAME }}
           version_label: v1
-          region: ${AWS_REGION}
+          region: ${{ env.AWS_REGION }}
           deployment_package: deploy.zip
