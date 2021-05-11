@@ -42,7 +42,7 @@ jobs:
       - name: Upload the build artifact
         uses: actions/upload-artifact@v2
         with:
-          name: build-artifact.jar
+          name: jar-package
           path: target/*.jar
           # We can remove the build artifact from GitHub after one day. There is a
           # 1GB storage limit for artifacts, and we don't really need them after
@@ -61,10 +61,10 @@ jobs:
         uses: actions/download-artifact@v2
         id: download
         with:
-          name: build-artifact.jar
+          name: jar-package
 
       - name: Generate deployment package
-        run: zip -r deploy.zip ${{ steps.download.outputs.download-path }}
+        run: zip deploy.zip ${{ steps.download.outputs.download-path }}/*.jar
 
       - name: DEBUG - Display structure of downloaded files
         run: ls
