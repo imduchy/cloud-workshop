@@ -1,0 +1,2 @@
+deploy:
+  artifact: target/cloud-workshop-example.jar

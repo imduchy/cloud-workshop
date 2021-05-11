@@ -64,7 +64,7 @@ jobs:
           name: jar-package
 
       - name: Generate deployment package
-        run: zip deploy.zip ${{ steps.download.outputs.download-path }}/*.jar
+        run: zip -r deploy.zip ${{ steps.download.outputs.download-path }}/*.jar .elasticbeanstalk
 
       - name: DEBUG - Display structure of downloaded files
         run: ls

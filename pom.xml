@@ -43,6 +43,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>cloud-workshop-example</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
