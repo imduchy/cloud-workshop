@@ -8,6 +8,11 @@ on:
     branches:
       # If you use 'master' branch instead, don't forget to change this to 'master'
       - main
+    paths:
+      # Only trigger the workflow if changes were made to files inside the 'src'
+      # folder. This will make sure that application is not re-deployed if changes
+      # are made to other files (e.g., README, docs/ or anything outside 'src')
+      - src/**
 
 # Global environment variables
 env:
