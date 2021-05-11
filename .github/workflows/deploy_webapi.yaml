@@ -81,6 +81,6 @@ jobs:
           # Make sure to set these variables based on your application/region
           application_name: ${{ env.APPLICATION_NAME }}
           environment_name: ${{ env.ENVIRONMENT_NAME }}
-          version_label: v1
+          version_label: v1-${{ github.sha }}
           region: ${{ env.AWS_REGION }}
           deployment_package: deploy.zip
