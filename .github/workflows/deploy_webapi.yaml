@@ -39,6 +39,8 @@ jobs:
         # lifecycle from StackOverflow - https://stackoverflow.com/a/55645546/8475178
         run: mvn --batch-mode --update-snapshots verify
 
+        # GitHub Actions don't persist files between jobs, so we will upload the
+        # packaged jar file as an artifact, and then download it in the next job.
       - name: Upload the build artifact
         uses: actions/upload-artifact@v2
         with:
@@ -49,37 +51,36 @@ jobs:
           # the deployment.
           retention-days: 1
 
+  # Deployment job
   deploy:
     runs-on: ubuntu-latest
+    # Only start executing after the build job has completed successfully
     needs: build
 
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
 
+        # Download the packaged jar file
       - name: Download the build artifact
         uses: actions/download-artifact@v2
         id: download
         with:
           name: jar-package
 
+        # Generate a deployment package with all files necessary for AWS Elastic Beanstalk
+        # engine. This includes the packaged jar file and the .elasticbeanstalk folder
+        # which contains config.yml file.
       - name: Generate deployment package
         run: zip -r deploy.zip *.jar .elasticbeanstalk
-
-      - name: DEBUG - Display structure of downloaded files
-        run: ls
-        working-directory: ${{ steps.download.outputs.download-path }}
-
-      - name: DEBUG - Display structure of the zip file
-        run: mkdir zip && unzip deploy.zip -d zip && ls -al zip
-        working-directory: ${{ steps.download.outputs.download-path }}
 
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v16
         with:
-          # Create an IAM User with least privilege access and store the generated
-          # Access key ID and Secret access key to your GitHub repository Secrets
-          # DO NOT HARDCODE THE VALUES DIRECTLY INTO THE CODE!
+          # To make this work, you need to create an IAM User (ideally with least
+          # privilege access) and store the generated Access key ID and Secret
+          # access key to your GitHub repository Secrets.
+          # > DO NOT HARDCODE THE VALUES DIRECTLY INTO THE CODE !!!
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           # Make sure to set these variables based on your application/region
@@ -87,4 +88,5 @@ jobs:
           environment_name: ${{ env.ENVIRONMENT_NAME }}
           version_label: v1-${{ github.sha }}
           region: ${{ env.AWS_REGION }}
+          # Deployment package we created in the previous step
           deployment_package: deploy.zip
