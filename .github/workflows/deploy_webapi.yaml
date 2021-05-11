@@ -61,6 +61,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: deploy.zip
+          path: ~/artifact/
 
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v16
@@ -75,4 +76,4 @@ jobs:
           environment_name: ${{ env.ENVIRONMENT_NAME }}
           version_label: v1
           region: ${{ env.AWS_REGION }}
-          deployment_package: deploy.zip
+          deployment_package: ~/artifact/deploy.zip
