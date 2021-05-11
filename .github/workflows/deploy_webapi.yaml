@@ -74,5 +74,5 @@ jobs:
           application_name: ${APPLICATION_NAME}
           environment_name: ${ENVIRONMENT_NAME}
           version_label: v1
-          aws-region: ${AWS_REGION}
+          region: ${AWS_REGION}
           deployment_package: deploy.zip
