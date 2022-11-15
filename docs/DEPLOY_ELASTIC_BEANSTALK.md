@@ -2,9 +2,12 @@
 
 This document explains how to deploy the demo application to AWS Elastic Beanstalk using AWS Console.
 
+### Step 0
+Start by opening the AWS Console and selecting the **Ireland** region in the top right corner.
+
 ### Step 1
 
-Start by opening the AWS Console and navigate to **Elastic Beanstalk** (use the search bar in the navigation bar). Click on the **Create Application** button to start configuring the web app.
+Navigate to **Elastic Beanstalk** (use the search bar in the navigation bar). Click on the **Create Application** button to start configuring the web app.
 
 ### Step 2
 
@@ -28,8 +31,9 @@ When the application is ready click on **Configuration**, and **Edit** in the **
 Choose one of the engines (for the workshop we will use **postgres**), fill in the **Username** and **Password** fields and leave all other fields with their
 default values. Do not set your Username to _admin_ as it is a reserved user and database creation would fail.
 
-Make sure that the **Instance class** is set to **db.t2.micro**. When everything is configured click on **Apply**. Database creation will
-take a couple of minutes again.
+For **Database deletion policy** select the **Delete** option.
+
+Make sure that the **Instance class** is set to **db.t2.micro** or **db.t3.micro**. When everything is configured click on **Apply**. Database creation will take a couple of minutes again.
 
 ### Step 7
 
