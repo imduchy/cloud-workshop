@@ -19,8 +19,8 @@ To host the Spring Boot application we will use AWS Elastic Beanstalk, and AWS R
 
 ## How to set up the project locally
 
-1. Clone the project locally (e.g., using SSH with `git clone git@github.com:Duchynko/cloud-workshop.git`)
-2. Replace the `username`, `password` and `url` fields in the `src/resources/application.properties` and provide your own database credentials
+1. Clone the project locally (e.g., using SSH with `git clone git@github.com:iamduchy/cloud-workshop.git`)
+2. Replace the `username`, `password` and `url` fields in the `src/main/resources/application.properties` and provide your own database credentials
 3. Make sure your database is up and running
 4. Start the application
 
